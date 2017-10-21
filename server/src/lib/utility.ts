@@ -2,7 +2,20 @@
  * Functions to be shared across multiple modules.
  */
 
+import * as crypto from 'crypto';
 import { exec } from 'child_process';
+
+const DEFAULT_SALT = '8shd9fg3oi0fj';
+
+/**
+ * Hash the string.
+ */
+export function hash(str: string, salt?: string): string {
+  return crypto
+    .createHmac('sha256', salt || DEFAULT_SALT)
+    .update(str)
+    .digest('hex');
+}
 
 /**
  * Returns the file extension of some path.
